@@ -9,9 +9,6 @@ import { MailModule } from './mail/mail.module';
 
 @Module({
   imports: [
-    MailModule,
-    UsersModule,
-    AuthModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),
@@ -25,6 +22,9 @@ import { MailModule } from './mail/mail.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
+    MailModule,
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

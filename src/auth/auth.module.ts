@@ -9,9 +9,11 @@ import { UsersModule } from '../users/users.module';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from '../users/users.entity';
+import { MailModule } from '../mail/mail.module';
 
 @Module({
   imports: [
+    MailModule,
     TypeOrmModule.forFeature([User]),
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
@@ -26,6 +28,7 @@ import { User } from '../users/users.entity';
     }),
   ],
   providers: [AuthService, JwtStrategy],
+  controllers: [AuthController],
   exports: [JwtStrategy, PassportModule],
 })
 export class AuthModule {}
