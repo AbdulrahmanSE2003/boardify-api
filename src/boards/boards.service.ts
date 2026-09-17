@@ -84,7 +84,7 @@ export class BoardsService {
     }
 
     board.members.push(user);
-    await this.boardsRepository.save(board);
+    return await this.boardsRepository.save(board);
   }
 
   async removeMember(boardId: string, addMemberDTO: AddDeleteMemberDTO) {
@@ -102,7 +102,7 @@ export class BoardsService {
     const user = await this.findMember(addMemberDTO.userId);
 
     board.members = board.members.filter((m) => m.id !== user.id);
-    await this.boardsRepository.save(board);
+    return await this.boardsRepository.save(board);
   }
 
   async updateBoard(boardId: string, updateBoardDTO: UpdateBoardDTO) {
@@ -115,7 +115,7 @@ export class BoardsService {
 
     board.title = updateBoardDTO.title;
 
-    await this.boardsRepository.save(board);
+    return await this.boardsRepository.save(board);
   }
 
   async deleteBoard(boardId: string) {
@@ -126,5 +126,6 @@ export class BoardsService {
       throw new NotFoundException(`Board with that id ${boardId} not found.`);
 
     await this.boardsRepository.remove(board);
+    return { message: 'Board deleted successfully' };
   }
 }
