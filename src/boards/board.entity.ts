@@ -2,7 +2,6 @@ import {
   Column,
   CreateDateColumn,
   Entity,
-  ForeignKey,
   JoinTable,
   ManyToMany,
   ManyToOne,
@@ -11,6 +10,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { User } from '../users/users.entity';
+import { BoardColumn } from '../columns/column.entity';
 
 @Entity()
 export class Board {
@@ -21,7 +21,7 @@ export class Board {
   title: string;
 
   @ManyToOne(() => User, { eager: false })
-  owner: string;
+  owner: User;
 
   @OneToMany(() => BoardColumn, (column) => column.board, { eager: false })
   columns: BoardColumn[];
